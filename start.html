@@ -6,9 +6,19 @@
 <link rel="stylesheet" type="text/css" href="stemwijzer.css">
 <body>
 	<div class="start">
-		<button class="start-button">Start</button>
+		<input class="start-button" type="button" value="Start" onclick="start()">
+		<div class="buttons">
+			<h1 id="title"></h1>
+			<p id="statement"></p>
+			<input id="eens" type="button" value="Eens" onclick="nextStatement()">
+			<input id="neither" type="button" value="Geen van beide" onclick="nextStatement()">
+		    <input id="oneens" type="button" value="Oneens" onclick="nextStatement()">
+		    <input id="volgende" type="button" value="Volgende" onclick="nextStatement()">
+		    <input id="vorige" type="button" value="Vorige" onclick="previousStatement()">
+		</div>
 	</div>
 
+<script src="http://stemwijzer.dvc-icta.nl/testdata.js"></script>
 <script src="start.js"></script>
 </body>
 </html>

@@ -27,5 +27,23 @@ body{
 }
 
 .buttons{
-	margin-left: auto;
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 37%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+#eens, #oneens, #neither, #volgende, #vorige{
+	background-color: black;
+	font-weight: bold;
+	color: white;
+	border: none;
+	padding: 15px 32px;
+	margin: 0;
+}
+
+#title{
+	color: lightblue;
 }
