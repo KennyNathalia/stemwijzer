@@ -1,15 +1,18 @@
-const start = document.querySelector('.start-button');
+const start = document.getElementById('start-button');
 const statement = document.getElementById('statement');
 const title = document.getElementById('title');
+const endTitle = document.getElementById('endTitle');
 const buttons = document.querySelector('.buttons');
 const eens = document.getElementById("eens");
 const oneens = document.getElementById("oneens");
-const oneens = document.getElementById("neither");
+const neither = document.getElementById("neither");
 const volgende = document.getElementById("volgende");
-const volgende = document.getElementById("vorige");
+const vorige = document.getElementById("vorige");
+const team = document.getElementById('team')
+const ending = document.querySelector(".ending");
 var statementCounter = 0;
 var titleCounter = 0;
-var input = [];
+var userAnswers = [];
  
 console.log(subjects);
 
@@ -18,6 +21,23 @@ start.onclick = function(){
 	start.style.display="none";
     buttons.style.display="block";
     displayStatement();
+}
+
+eens.onclick = function(){
+	userAnswers[statementCounter] = "pro";
+	console.log(userAnswers);
+	nextStatement();
+}
+
+oneens.onclick = function(){
+	userAnswers[statementCounter] = "contra";
+	console.log(userAnswers);
+	nextStatement();
+}
+
+function endScreen(){
+	buttons.style.display= "none";
+	ending.style.display = "block";
 }
 
 function displayStatement(){
@@ -30,6 +50,8 @@ function nextStatement(){
 		statementCounter++;
 		titleCounter++;
 		displayStatement();
+	} else{
+		endScreen();
 	}
 }
 
@@ -39,4 +61,8 @@ function previousStatement(){
 		titleCounter--;
 		displayStatement();
 	}
+}
+
+function results(){
+
 }

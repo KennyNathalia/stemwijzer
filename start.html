@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Stemwijzer - Begin</title>
+	<title>Stemwijzer</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <link rel="stylesheet" type="text/css" href="stemwijzer.css">
 <body>
-	<div class="start">
-		<input class="start-button" type="button" value="Start" onclick="start()">
-		<div class="buttons">
+	<div class="start mt-3">
+		<input id="start-button" type="button" value="Start">
+		<div class="buttons col-8 mx-auto">
 			<h1 id="title"></h1>
 			<p id="statement"></p>
-			<input id="eens" type="button" value="Eens" onclick="nextStatement()">
+			<input id="eens" type="button" value="Eens">
 			<input id="neither" type="button" value="Geen van beide" onclick="nextStatement()">
-		    <input id="oneens" type="button" value="Oneens" onclick="nextStatement()">
+		    <input id="oneens" type="button" value="Oneens">
 		    <input id="volgende" type="button" value="Volgende" onclick="nextStatement()">
 		    <input id="vorige" type="button" value="Vorige" onclick="previousStatement()">
+		</div>
+		<div class="ending">
+			<h1 id="endTitle" class="text-center">Results</h1>
+			<p id="team"></p>
 		</div>
 	</div>
 

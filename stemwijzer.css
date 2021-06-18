@@ -13,7 +13,7 @@ body{
 	position: relative;
 }
 
-.start-button{
+#start-button{
 	background-color: #008CBA;
 	color: white;
 	border: none;
@@ -30,7 +30,7 @@ body{
 	display: none;
 	position: absolute;
 	top: 50%;
-	left: 37%;
+	left: 25%;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
@@ -44,6 +44,10 @@ body{
 	margin: 0;
 }
 
-#title{
+#title, #endTitle{
 	color: lightblue;
+}
+
+.ending{
+	display: none;
 }
