@@ -8,7 +8,7 @@ const oneens = document.getElementById("oneens");
 const neither = document.getElementById("neither");
 const volgende = document.getElementById("volgende");
 const vorige = document.getElementById("vorige");
-const team = document.getElementById('team')
+const team = document.getElementById('team');
 const ending = document.querySelector(".ending");
 var statementCounter = 0;
 var titleCounter = 0;
@@ -38,6 +38,7 @@ oneens.onclick = function(){
 function endScreen(){
 	buttons.style.display= "none";
 	ending.style.display = "block";
+	results();
 }
 
 function displayStatement(){
@@ -64,5 +65,10 @@ function previousStatement(){
 }
 
 function results(){
-
+	if (userAnswers.includes("contra", "pro", "contra", "pro")){
+		team.innerHTML = "PVV";
+	}
+	if (userAnswers.includes("pro", "contra", "contra", "contra")){
+		team.innerHTML = "SP";
+	}
 }
