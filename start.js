@@ -13,6 +13,12 @@ const ending = document.querySelector(".ending");
 var statementCounter = 0;
 var titleCounter = 0;
 var userAnswers = [];
+var partyScore = [
+	{name: "PVV", score: 0},
+	{name: "D66", score: 0},
+	{name: "CU", score: 0},
+	{name: "SP", score: 0}
+]
  
 console.log(subjects);
 
@@ -36,28 +42,33 @@ oneens.onclick = function(){
 }
 
 function endScreen(){
+	//hides the statement and button 
 	buttons.style.display= "none";
 	ending.style.display = "block";
 	results();
 }
 
 function displayStatement(){
+	//displays title and statement
 	title.innerHTML = subjects[statementCounter].title;
 	statement.innerHTML = subjects[statementCounter].statement;
 }	
 
 function nextStatement(){
+	//function for the "volgende" button
 	if(titleCounter != 3){
 		statementCounter++;
 		titleCounter++;
 		displayStatement();
 	} else{
+		//shows end results if last statement is answered
 		endScreen();
 	}
 }
 
 function previousStatement(){
 	if(statementCounter != 0){
+		//function for the "vorige" button
 		statementCounter--;
 		titleCounter--;
 		displayStatement();
@@ -65,10 +76,25 @@ function previousStatement(){
 }
 
 function results(){
-	if (userAnswers.includes("contra", "pro", "contra", "pro")){
-		team.innerHTML = "PVV";
-	}
-	if (userAnswers.includes("pro", "contra", "contra", "contra")){
-		team.innerHTML = "SP";
-	}
+
+	// var score = 0;
+
+	// var userAnswers = ["contra","pro","contra","pro"]; 
+	// var opinionPVV =  ["contra","pro","contra","pro"];
+	// for (var index = 0; index < userAnswers.length; index++){
+	// 	if (userAnswers[index] === opinionPVV[index])
+	// 		score++;
+	// 		console.log(score);
+			
+	// }
+
+	for (var i = 0; i < subjects.length; i++){
+		for (var p = 0; p < parties.length; p++){
+
+		var partyAnswer = subjects[i].parties[p].position
+			if(userAnswers[i] == partyAnswer){
+				team.innerHTML = subjects[i].parties[p].name
+			}	
+		}
+	};
 }
