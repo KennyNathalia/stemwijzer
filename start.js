@@ -76,25 +76,16 @@ function previousStatement(){
 }
 
 function results(){
-
-	// var score = 0;
-
-	// var userAnswers = ["contra","pro","contra","pro"]; 
-	// var opinionPVV =  ["contra","pro","contra","pro"];
-	// for (var index = 0; index < userAnswers.length; index++){
-	// 	if (userAnswers[index] === opinionPVV[index])
-	// 		score++;
-	// 		console.log(score);
-			
-	// }
-
 	for (var i = 0; i < subjects.length; i++){
 		for (var p = 0; p < parties.length; p++){
 
 		var partyAnswer = subjects[i].parties[p].position
-			if(userAnswers[i] == partyAnswer){
-				team.innerHTML = subjects[i].parties[p].name
+			if(userAnswers[i] === partyAnswer){
+				partyScore[p].score++
+				console.log(partyScore);
 			}	
 		}
-	};
+	}
 }
+
+//team.innerHTML = subjects[i].parties[p].name
