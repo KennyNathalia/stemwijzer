@@ -10,6 +10,7 @@ const volgende = document.getElementById("volgende");
 const vorige = document.getElementById("vorige");
 const team = document.getElementById('team');
 const ending = document.querySelector(".ending");
+var x;
 var statementCounter = 0;
 var titleCounter = 0;
 var userAnswers = [];
@@ -18,10 +19,24 @@ var partyScore = [
 	{name: "D66", score: 0},
 	{name: "CU", score: 0},
 	{name: "SP", score: 0}
-]
- 
+];
+
 console.log(subjects);
 
+function colorButton(currentStatement){
+	if(currentStatement == statementCounter){
+		if(sessionStorage.getItem(statementCounter) == "true"){
+			if (userAnswers[statementCounter] = "pro") {
+				eens.style.backgroundColor = "blue";
+			}
+			if(userAnswers[statementCounter] = "contra"){
+				oneens.style.backgroundColor = "blue";
+			}
+			//console.log(currentStatement);
+			//console.log(statementCounter);
+	 	}
+	 }
+}
 
 start.onclick = function(){
 	start.style.display="none";
@@ -52,6 +67,7 @@ function displayStatement(){
 	//displays title and statement
 	title.innerHTML = subjects[statementCounter].title;
 	statement.innerHTML = subjects[statementCounter].statement;
+	colorButton(statementCounter);
 }	
 
 function nextStatement(){
@@ -59,7 +75,9 @@ function nextStatement(){
 	if(titleCounter != 3){
 		statementCounter++;
 		titleCounter++;
+		sessionStorage.setItem(statementCounter, "true");
 		displayStatement();
+		colorButton(statementCounter);
 	} else{
 		//shows end results if last statement is answered
 		endScreen();
@@ -77,15 +95,22 @@ function previousStatement(){
 
 function results(){
 	for (var i = 0; i < subjects.length; i++){
+		console.log("subjects = " + i);
 		for (var p = 0; p < parties.length; p++){
-
-		var partyAnswer = subjects[i].parties[p].position
-			if(userAnswers[i] === partyAnswer){
+		var partyAnswer = subjects[i].parties[p].position;
+		console.log("parties = " + p);
+			if(partyAnswer == userAnswers[i]){
 				partyScore[p].score++
 				console.log(partyScore);
+				//console.log(userAnswers[i]);
+				//console.log(partyAnswer);
+				team.innerHTML = subjects[i].parties[p].name;
+				console.log(subjects[i].parties[p].name);
+
 			}	
 		}
 	}
 }
 
-//team.innerHTML = subjects[i].parties[p].name
+
+//useranswer == partyanswer
