@@ -77,7 +77,7 @@ function nextStatement(){
 		titleCounter++;
 		sessionStorage.setItem(statementCounter, "true");
 		displayStatement();
-		colorButton(statementCounter);
+		//colorButton(statementCounter);
 	} else{
 		//shows end results if last statement is answered
 		endScreen();
@@ -94,23 +94,28 @@ function previousStatement(){
 }
 
 function results(){
+	//loop door de subjects
 	for (var i = 0; i < subjects.length; i++){
 		console.log("subjects = " + i);
+		//loop door de parties
 		for (var p = 0; p < parties.length; p++){
 		var partyAnswer = subjects[i].parties[p].position;
+		var find = subjects.parties.find(({position}) => position === userAnswers[i]);
 		console.log("parties = " + p);
-			if(partyAnswer == userAnswers[i]){
+			if(userAnswers[i] == partyAnswer){
 				partyScore[p].score++
 				console.log(partyScore);
+				console.log(find);
 				//console.log(userAnswers[i]);
 				//console.log(partyAnswer);
-				team.innerHTML = subjects[i].parties[p].name;
 				console.log(subjects[i].parties[p].name);
+				//console.log(found);
 
-			}	
+			}
+			team.innerHTML = subjects[i].parties[p].name;	
 		}
 	}
 }
 
-
-//useranswer == partyanswer
+//functie pakt heel de tijd de eerste party van de array
+//in de derde array zijn de parties in een andere order
