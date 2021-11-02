@@ -1,29 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Stemwijzer</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-</head>
-<link rel="stylesheet" type="text/css" href="stemwijzer.css">
-<body>
-	<div class="start mt-3">
-		<input id="start-button" type="button" value="Start">
-		<div class="buttons col-8 mx-auto">
-			<h1 id="title"></h1>
-			<p id="statement"></p>
-			<input id="eens" type="button" value="Eens">
-			<input id="neither" type="button" value="Geen van beide" onclick="nextStatement()">
-		    <input id="oneens" type="button" value="Oneens">
-		    <input id="volgende" type="button" value="Volgende" onclick="nextStatement()">
-		    <input id="vorige" type="button" value="Vorige" onclick="previousStatement()">
-		</div>
-		<div class="ending">
-			<h1 id="endTitle" class="text-center">Results</h1>
-			<p id="team" class="text-center"></p>
-		</div>
-	</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Stemwijzer</title>
+    <link rel="stylesheet" type="text/css" href="stemwijzer.css">
+  </head>
+  <body>
+    <div class="start">
+      <h1 id="title"></h1>
+      <p id="description"></p>
+      <button id="start-button">START</button>
 
-<script src="http://stemwijzer.dvc-icta.nl/testdata.js"></script>
-<script src="start.js"></script>
-</body>
+      <div id="buttons">
+        <button id="eens">Eens</button>
+        <button id="neither">Geen van beide</button>
+        <button id="oneens">Oneens</button>
+        <button id="volgende">Volgende</button>
+        <button id="vorige">Vorige</button>
+      </div>
+
+      <div id="resultaten"></div>
+
+      <ul id="vragenlijst"></ul>
+    </div>
+    <script src="data.js"></script>
+    <script src="start.js"></script>
+  </body>
 </html>

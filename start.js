@@ -1,121 +1,196 @@
-const start = document.getElementById('start-button');
-const statement = document.getElementById('statement');
-const title = document.getElementById('title');
-const endTitle = document.getElementById('endTitle');
-const buttons = document.querySelector('.buttons');
-const eens = document.getElementById("eens");
-const oneens = document.getElementById("oneens");
-const neither = document.getElementById("neither");
-const volgende = document.getElementById("volgende");
-const vorige = document.getElementById("vorige");
-const team = document.getElementById('team');
-const ending = document.querySelector(".ending");
-var x;
-var statementCounter = 0;
-var titleCounter = 0;
+var start = document.getElementById("start-button");
+var neither = document.getElementById("neither");
+var oneens = document.getElementById("oneens");
+var eens = document.getElementById("eens");
+var volgende = document.getElementById("volgende");
+var vorige = document.getElementById("vorige");
+var buttons = document.getElementById("buttons");
+var title = document.getElementById("title");
+var description = document.getElementById("description");
+var importantList = document.getElementById('vragenlijst');
+var x = 0;
 var userAnswers = [];
-var partyScore = [
-	{name: "PVV", score: 0},
-	{name: "D66", score: 0},
-	{name: "CU", score: 0},
-	{name: "SP", score: 0}
-];
+var questions = 30;
+var score = [];
+var selectedParties = [];
+var test = "test";
+var secular;
+buttons.style.display = "none";
 
-console.log(subjects);
-
-function colorButton(currentStatement){
-	if(currentStatement == statementCounter){
-		if(sessionStorage.getItem(statementCounter) == "true"){
-			if (userAnswers[statementCounter] = "pro") {
-				eens.style.backgroundColor = "blue";
-			}
-			if(userAnswers[statementCounter] = "contra"){
-				oneens.style.backgroundColor = "blue";
-			}
-			//console.log(currentStatement);
-			//console.log(statementCounter);
-	 	}
-	 }
-}
 
 start.onclick = function(){
-	start.style.display="none";
-    buttons.style.display="block";
-    displayStatement();
+    start.style.display = "none";
+    buttons.style.display = "inline";
+    title.innerHTML = subjects[x].title;
+    description.innerHTML = subjects[x].statement;
+    if(x > 0){
+        x--
+    }
 }
 
 eens.onclick = function(){
-	userAnswers[statementCounter] = "pro";
-	console.log(userAnswers);
-	nextStatement();
+	userAnswers[x] = "pro";
+    nextStatement();
 }
 
 oneens.onclick = function(){
-	userAnswers[statementCounter] = "contra";
-	console.log(userAnswers);
-	nextStatement();
+	userAnswers[x] = "contra";
+    nextStatement();
 }
 
-function endScreen(){
-	//hides the statement and button 
-	buttons.style.display= "none";
-	ending.style.display = "block";
-	results();
+neither.onclick = function(){
+	userAnswers[x] = "none";
+    nextStatement();
 }
 
-function displayStatement(){
-	//displays title and statement
-	title.innerHTML = subjects[statementCounter].title;
-	statement.innerHTML = subjects[statementCounter].statement;
-	colorButton(statementCounter);
-}	
+
+volgende.onclick = function(){
+    questions--;
+    nextStatement();
+}
+
+vorige.onclick = function(){
+    questions--;
+    previousStatement();
+}
+
 
 function nextStatement(){
-	//function for the "volgende" button
-	if(titleCounter != 3){
-		statementCounter++;
-		titleCounter++;
-		sessionStorage.setItem(statementCounter, "true");
-		displayStatement();
-		//colorButton(statementCounter);
-	} else{
-		//shows end results if last statement is answered
-		endScreen();
-	}
+    x++;
+    if(x >= subjects.length){
+        partySelect();
+    }else{
+        title.innerHTML = subjects[x].title;
+        description.innerHTML = subjects[x].statement;
+    }
 }
 
 function previousStatement(){
-	if(statementCounter != 0){
-		//function for the "vorige" button
-		statementCounter--;
-		titleCounter--;
-		displayStatement();
-	}
+    x--;
+    if(x >= 0){
+        title.innerHTML = subjects[x].title;
+        description.innerHTML = subjects[x].statement;
+    }
 }
 
-function results(){
-	//loop door de subjects
+function partySelect(){
+    start.style.display = 'none';
+    volgende.style.display = 'none';
+    vorige.style.display = 'none';
+    description.style.display = 'none';
+    title.innerHTML = "Welke soort partijen wil je meenemen in het resultaat?";
+    eens.innerHTML = "grote partijen";
+    oneens.innerHTML = "seculiere partijen";
+    neither.innerHTML = "alle partijen";
+    eens.onclick = function() {bigParties()};
+    oneens.onclick = function() {secularParties()};
+    neither.onclick = function() {allParties()};
+}
+
+function bigParties(){
+    selectedParties = score.filter(party => party.size > 0);
+
+    statements();
+}
+
+function secularParties(){
+    selectedParties = score.filter(party => party.secular = true);
+
+    statements();
+}
+
+function allParties(){
+    
+    statements();
+}
+
+function statements(){
+    oneens.style.display = 'none';
+    neither.style.display = 'none';
+    title.innerHTML = "Zijn er onderwerpen die u extra belangrijk vindt?";
+    eens.innerHTML = "Ga verder";
+    list();
+    eens.onclick = function() {results()};
+}
+
+function list(){
+    for(i = 0; i < subjects.length; i++){
+        var li = document.createElement("li");
+        var t = document.createTextNode(subjects[i].title);
+        var checkBox = document.createElement("input");
+        checkBox.setAttribute("type", "checkbox");
+        checkBox.setAttribute("subjectIndex", i);
+        li.appendChild(checkBox);
+        li.appendChild(t);
+        document.getElementById("vragenlijst").appendChild(li);
+    }
+
+}
+
+function checkList(){
+    var importantList = document.querySelectorAll('#vragenlijst li input');
+    for(i = 0; i < importantList.length; i++){
+        subjects[i].important = importantList[i].checked;
+        questions++;
+    }
+}
+
+
+function compareStatement(){
+    for (var q = 0; q < parties.length; q++){
+        score.push({name: parties[q].name ,score: 0, size: parties[q].size})
+    }
 	for (var i = 0; i < subjects.length; i++){
-		console.log("subjects = " + i);
+		
 		//loop door de parties
 		for (var p = 0; p < parties.length; p++){
-		var partyAnswer = subjects[i].parties[p].position;
-		var find = subjects.parties.find(({position}) => position === userAnswers[i]);
-		console.log("parties = " + p);
+		    var partyAnswer = subjects[i].parties[p].position;
+            // console.log(userAnswers[i]);
+            // console.log(partyAnswer);
 			if(userAnswers[i] == partyAnswer){
-				partyScore[p].score++
-				console.log(partyScore);
-				console.log(find);
-				//console.log(userAnswers[i]);
-				//console.log(partyAnswer);
-				console.log(subjects[i].parties[p].name);
-				//console.log(found);
+                    var index = score.findIndex(item => item.name === subjects[i].parties[p].name);
+                    
+                    score[index].score++
+                    
+    				parties[p].score++;
+                   
+    				if(subjects[i].important == true){
+    					score[index].score++
+    				}
 
+                    else{
+    					score[index].score + 0;
+    				}
+                
+
+			}else if(userAnswers[i] == "undefined"){
+			        score[index].score + 0;
 			}
-			team.innerHTML = subjects[i].parties[p].name;	
 		}
-	}
+	} 
 }
 
-//functie pakt heel de tijd de eerste party van de array
-//in de derde array zijn de parties in een andere order
+
+function results(){
+    console.log(parties);
+    
+    checkList();
+    compareStatement();
+    buttons.style.display = 'none';
+    vragenlijst.style.display = 'none';
+    description.style.display = 'inline';
+    title.innerHTML = "Hier zijn uw resultaten";
+    description.innerHTML = "";
+    score.sort((firstItem, secondItem) => firstItem.score - secondItem.score);
+    score.reverse();
+    for(e = 0; e <= score.length - 1; e++){
+        var result = Math.round((score[e].score / questions) * 100);
+        var li = document.createElement("li");
+        var p = document.createTextNode(score[e].name + '\n');
+        var t = document.createTextNode(result);
+        //console.log(score);
+        li.appendChild(p);
+        li.appendChild(t);
+        document.getElementById("description").appendChild(li);
+    }
+}
